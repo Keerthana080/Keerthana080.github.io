@@ -93,9 +93,9 @@ function initTypingEffect() {
 
   // ✏️ Add/remove roles here
   const roles = [
-    'scalable web apps.',
+    'AI integrated apps.',
+    'Cyber Security.',
     'elegant solutions.',
-    'full-stack products.',
     'open-source tools.',
     'fast APIs.',
   ];
@@ -278,28 +278,36 @@ function initContactForm() {
     submitBtn.disabled = true;
     submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Sending…';
 
-    // ── Simulate send (replace with real API call) ──────────────────
-    // Example with Formspree:
-    //   const res = await fetch('https://formspree.io/f/YOUR_FORM_ID', {
-    //     method: 'POST',
-    //     headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-    //     body: JSON.stringify(Object.fromEntries(new FormData(form)))
-    //   });
-    //   if (res.ok) { ... success ... } else { ... error ... }
-    // ────────────────────────────────────────────────────────────────
+    try {
+      // ✏️ Replace the URL below with YOUR Formspree URL
+      const res = await fetch('https://formspree.io/f/maqlblwk', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify(Object.fromEntries(new FormData(form)))
+      });
 
-    await simulateDelay(1600);
-
-    if (status) {
-      status.textContent = '✓ Message sent! I\'ll get back to you within 24 hours.';
-      status.style.color = 'var(--green)';
+      if (res.ok) {
+        // ✅ Success
+        status.textContent = '✓ Message sent! I\'ll get back to you within 24 hours.';
+        status.style.color = 'var(--green)';
+        form.reset();
+      } else {
+        // ❌ Formspree returned an error
+        status.textContent = '✗ Something went wrong. Please email me directly.';
+        status.style.color = 'var(--red)';
+      }
+    } catch (err) {
+      // ❌ Network error
+      status.textContent = '✗ Network error. Please try again.';
+      status.style.color = 'var(--red)';
     }
 
-    form.reset();
     submitBtn.disabled = false;
     submitBtn.innerHTML = original;
 
-    // Clear status after a few seconds
     setTimeout(() => {
       if (status) status.textContent = '';
     }, 6000);
