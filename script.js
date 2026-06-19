@@ -93,11 +93,11 @@ function initTypingEffect() {
 
   // ✏️ Add/remove roles here
   const roles = [
-    'AI integrated apps.',
-    'Cyber Security.',
-    'elegant solutions.',
-    'open-source tools.',
-    'fast APIs.',
+    'AI Integrated Apps.',
+    'UI/UX Designs.',
+    'Elegant Solutions.',
+    'Open-Source Tools.',
+    'Fast APIs.',
   ];
 
   let roleIndex  = 0;
